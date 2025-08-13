@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Feedback{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <h2 class="mb-4">Send Us Your Feedback</h2>
+
+        <!-- Flash messages -->
+        {% for message in get_flashed_messages(category_filter=['success']) %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        <!-- Form -->
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.name.label(class="form-label") }}
+                {{ form.name(class="form-control") }}
+                {% for error in form.name.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+                {% for error in form.email.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.message.label(class="form-label") }}
+                {{ form.message(class="form-control", rows="4") }}
+                {% for error in form.message.errors %}
+                    <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    {% for field, errors in form.errors.items() %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
