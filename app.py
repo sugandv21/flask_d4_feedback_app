@@ -20,4 +20,5 @@ def feedback():
     return render_template('layout/feedback.html', form=form)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
+
